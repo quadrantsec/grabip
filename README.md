@@ -32,7 +32,7 @@ $ cat /var/log/syslog | /usr/local/bin/grabip
 ...
 </pre>
 
-The best use case is to be able to create IPv4/IPv6 indices for many log files.  For example,  let say
+The normal use case is to be able to create IPv4/IPv6 indices for many log files.  For example,  let say
 we have a directory containing many days/weeks/months of files.  Like this:
 
 <pre>
