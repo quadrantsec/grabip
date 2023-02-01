@@ -86,3 +86,18 @@ contain "192.168.1.222".
 
 This results in faster search times as you aren't searching through files we know the data isn't present in. ``grabip`` is meant to be run after ``logrotate`` has completed its tasks. 
 
+Installation
+------------
+
+``grabip`` has no prerequisites.  All you need is a C compiler.
+
+<pre>
+
+$ ./autogen.sh
+$ ./configure 
+$ make 
+$ sudo make install
+
+</pre>
+
+
