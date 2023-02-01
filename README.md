@@ -71,6 +71,18 @@ You will now have a directory that looks similar to this:
 
 </pre>
 
+These new ".ip.index" files will contain every IPv4 and IPv6 address contained within each
+dataset. 
 
+Now, rather than searching huge datasets for IP addresses, you can target only the files that
+you've already pre-index'ed with ``grabip`` for that data.  For example:
 
+<pre>
+zgrep "192.168.1.222" `grep "192.168.1.222" *.ip.index | cut -d':' -f1 | sed 's/\.ip\.index//g'`
+</pre>
+
+This will _only_ search for "192.168.1.222" in files that we already know (have indexed) that
+contain "192.168.1.222".
+
+This results in faster search times as you aren't searching through files we know the data isn't present in.
 
