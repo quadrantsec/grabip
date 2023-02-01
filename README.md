@@ -53,7 +53,7 @@ We can use ``grabip`` to build IPv4/IPv6 indices based on those files, like this
 
 <pre>
 
-$ ls -1 *.gz | while read IN; do zcat $IN | /usr/local/bin/grabip > $IN.ip.index; done
+$ for IN in *.gz; do zcat $IN | /usr/local/bin/grabip > $IN.ip.index; done
 
 </pre>
 
