@@ -32,8 +32,8 @@ $ cat /var/log/syslog | /usr/local/bin/grabip
 ...
 </pre>
 
-The normal use case is to be able to create IPv4/IPv6 indices for many log files.  For example,  let say
-we have a directory containing many days/weeks/months of files.  Like this:
+The normal use case is to be able to create IPv4/IPv6 indices for many log files.  For example,  lets say
+you have a directory containing many days/weeks/months of files.  Like this:
 
 <pre>
 -rw-r--r-- 1 root root 297977 Dec 26 23:59 10.22.3.110-20221226.log.gz
