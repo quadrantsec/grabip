@@ -53,10 +53,23 @@ We can use ``grabip`` to build IPv4/IPv6 indices based on those files, like this
 
 <pre>
 
-$ ls -1 *.gz | while read IN | do ; zcat $IN | /usr/local/bin/grabip > $IN.ip.index; done
+$ ls -1 *.gz | while read IN; do zcat $IN | /usr/local/bin/grabip > $IN.ip.index; done
 
 </pre>
 
+You will now have a directory that looks similar to this:
+
+<pre>
+
+-rw-r--r-- 1 root root 297977 Dec 26 23:59 10.22.3.110-20221226.log.gz
+-rw-r--r-- 1 root root    131 Dec 26 23:59 10.22.3.110-20221226.log.gz.ip.index
+-rw-r--r-- 1 root root 292392 Dec 27 23:59 10.22.3.110-20221227.log.gz
+-rw-r--r-- 1 root root    231 Dec 27 23:59 10.22.3.110-20221227.log.gz.ip.index
+-rw-r--r-- 1 root root 295880 Dec 28 23:59 10.22.3.110-20221228.log.gz
+-rw-r--r-- 1 root root    666 Dec 28 23:59 10.22.3.110-20221228.log.gz.ip.index
+...
+
+</pre>
 
 
 
