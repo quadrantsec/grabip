@@ -22,7 +22,7 @@ You can also take data in from a file:
 $ cat /var/log/syslog | /usr/local/bin/grabip
 127.0.0.1
 62.233.50.2
-185.225..247
+185.225.1.247
 10.27.2.99
 62.77.172.87
 142.98.10.71
