@@ -111,7 +111,6 @@ AC_TYPE_PID_T
 AC_TYPE_SIZE_T
 AC_STRUCT_TM 
 
-#AX_EXT
 AM_PROG_AS
 
 AC_CHECK_FUNCS([strchr strcmp strlen sizeof snprintf strlcat strlcpy getopt_long htons strspn memset strerror])

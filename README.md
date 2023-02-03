@@ -1,6 +1,20 @@
+Installation
+------------
 
-grabip
-------
+``grabip`` has no prerequisites.  All you need is a C compiler.
+
+<pre>
+
+$ ./autogen.sh
+$ ./configure 
+$ make 
+$ sudo make install
+
+</pre>
+
+
+Grabip Usage
+------------
 
 This is a simple routine that takes text data in via "stdin" and parses it for any unique IP addresses.  When IPv4 or IPv6 addresses are found, it prints them out via stdout.  
 
@@ -86,18 +100,6 @@ contain "192.168.1.222".
 
 This results in faster search times as you aren't searching through files we know the data isn't present in. ``grabip`` is meant to be run after ``logrotate`` has completed its tasks. 
 
-Installation
-------------
-
-``grabip`` has no prerequisites.  All you need is a C compiler.
-
-<pre>
-
-$ ./autogen.sh
-$ ./configure 
-$ make 
-$ sudo make install
-
-</pre>
-
+If you are looking to extract usernames, hostnames, and other "string" data from log files,  check
+out ``normie`` ( https://github.com/quadrantsec/normie ).
 

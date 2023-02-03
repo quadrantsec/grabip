@@ -38,17 +38,17 @@ int main()
     char *buf = NULL;
     buf = malloc( BUFFER_SIZE );
 
+    if ( buf == NULL )
+        {
+            fprintf(stderr, "[%s, line %d] Error allocating memory for buffer.\n", __FILE__, __LINE__);
+            exit(-1);
+        }
+
     uint16_t lookup_cache_size = 0;
     uint16_t i = 0;
 
     uint64_t ip_entry_size = 0;
     uint64_t z = 0;
-
-    if ( buf == NULL )
-        {
-            fprintf(stderr, "Unable to allocate buffer memory.\n");
-            exit(1);
-        }
 
     struct _IP_Entry *IP_Entry = NULL;
 
@@ -67,9 +67,6 @@ int main()
         {
 
             lookup_cache_size = Parse_IP( buf, Lookup_Cache );
-//	    printf("lookup_cache_size: %d\n", lookup_cache_size);
-
-//	    bool found = false;
 
             for ( i = 0; i < lookup_cache_size; i++ )
                 {
@@ -78,17 +75,12 @@ int main()
 
                     for ( z = 0; z < ip_entry_size; z++ )
                         {
-
                             if ( !strcmp(IP_Entry[z].ip, Lookup_Cache[i].ip ) )
                                 {
 
-//				printf("Found %s\n", IP_Entry[z].ip);
                                     found = true;
 
                                 }
-
-//			printf("%s\n", Lookup_Cache[i].ip);
-
                         }
 
                     if ( found == false )
@@ -98,7 +90,7 @@ int main()
 
                             if ( IP_Entry == NULL )
                                 {
-                                    fprintf(stderr, "Failed to reallocate memory for _IP_Entry\n");
+                                    fprintf(stderr, "[%s, line %d] Failed to reallocate memory for _IP_Entry\n", __FILE__, __LINE__);
                                     exit(-1);
                                 }
 
@@ -114,7 +106,7 @@ int main()
 
     for ( z = 0; z < ip_entry_size; z++ )
         {
-            printf("%s\n", IP_Entry[z].ip);
+            fprintf(stdout, "%s\n", IP_Entry[z].ip);
         }
 
     free(Lookup_Cache);

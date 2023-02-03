@@ -18,7 +18,6 @@
 ** Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -112,18 +111,12 @@ uint_fast8_t Parse_IP( const char *buf, struct _Lookup_Cache_Entry *Lookup_Cache
                             num_colons++;
                             break;
 
-//                        case('#'):
-//                            num_hashes++;
-//                            break;
-
                         case('.'):
                             num_dots++;
                             break;
 
                         }
                 }
-
-//            printf("Colons: %d, Dots: %d\n", num_colons, num_dots );
 
             /* Needs to have proper IPv6 or IPv4 encoding. num_dots > 4 is for IP with trailing
             period. */
@@ -144,15 +137,10 @@ uint_fast8_t Parse_IP( const char *buf, struct _Lookup_Cache_Entry *Lookup_Cache
                     if ( valid == 1 )
                         {
 
-                            // printf("Got standalone IP: %s\n", ptr1);
                             memcpy(Lookup_Cache[current_position].ip, ptr1, MAX_IP_SIZE);
                             current_position++;
 
-                            if ( current_position > MAX_PARSE_IP )
-                                {
-                                    fprintf(stderr, "Went over the MAX_PARSE_IP limit of %d\n", MAX_PARSE_IP);
-                                    exit(-1);
-                                }
+                            Check_Position( current_position );
 
                         }
 
@@ -173,16 +161,11 @@ uint_fast8_t Parse_IP( const char *buf, struct _Lookup_Cache_Entry *Lookup_Cache
                     if ( valid == 1 )
                         {
 
-//                            printf("IP with period: %s\n", ptr1);
                             memcpy(Lookup_Cache[current_position].ip, ptr1, MAX_IP_SIZE);
-
                             current_position++;
 
-                            if ( current_position > MAX_PARSE_IP )
-                                {
-                                    fprintf(stderr, "Went over the MAX_PARSE_IP limit of %d\n", MAX_PARSE_IP);
-                                    exit(-1);
-                                }
+                            Check_Position( current_position );
+
                         }
 
                 }
@@ -207,17 +190,10 @@ uint_fast8_t Parse_IP( const char *buf, struct _Lookup_Cache_Entry *Lookup_Cache
                     if ( valid == 1 )
                         {
 
-//                            printf("With colon: %s\n", ip_1);
                             memcpy(Lookup_Cache[current_position].ip, ip_1, MAX_IP_SIZE);
-
                             current_position++;
 
-                            if ( current_position > MAX_PARSE_IP )
-                                {
-                                    fprintf(stderr, "Went over the MAX_PARSE_IP limit of %d\n", MAX_PARSE_IP);
-                                    exit(-1);
-                                }
-
+                            Check_Position( current_position );
                         }
 
                     /* Leading : */
@@ -230,17 +206,10 @@ uint_fast8_t Parse_IP( const char *buf, struct _Lookup_Cache_Entry *Lookup_Cache
                     if ( valid == 1 )
                         {
 
-//                            printf("Leading colon: %s\n", ip_2);
-
                             memcpy(Lookup_Cache[current_position].ip, ip_2, MAX_IP_SIZE);
                             current_position++;
 
-                            if ( current_position > MAX_PARSE_IP )
-                                {
-                                    fprintf(stderr, "Went over the MAX_PARSE_IP limit of %d\n", MAX_PARSE_IP);
-                                    exit(-1);
-                                }
-
+                            Check_Position( current_position );
                         }
 
                 }
@@ -248,12 +217,8 @@ uint_fast8_t Parse_IP( const char *buf, struct _Lookup_Cache_Entry *Lookup_Cache
 
             /* Stand alone IPv6 */
 
-//            printf("num_colons: %d\n", num_colons);
-
             if ( num_colons > 2 )
                 {
-
-//                    printf("INIT: %s\n", ptr1);
 
                     valid = inet_pton(AF_INET6, ptr1,  &(sa.sin_addr));
 
@@ -261,16 +226,10 @@ uint_fast8_t Parse_IP( const char *buf, struct _Lookup_Cache_Entry *Lookup_Cache
                         {
 
                             memcpy(Lookup_Cache[current_position].ip, ptr1, MAX_IP_SIZE);
-
-//                            printf("Stand alone IPv6 %s\n", ptr1);
-
                             current_position++;
 
-                            if ( current_position > MAX_PARSE_IP )
-                                {
-                                    fprintf(stderr, "Went over the MAX_PARSE_IP limit of %d\n", MAX_PARSE_IP);
-                                    exit(-1);
-                                }
+                            Check_Position( current_position );
+
                         }
                 }
 
@@ -288,18 +247,10 @@ uint_fast8_t Parse_IP( const char *buf, struct _Lookup_Cache_Entry *Lookup_Cache
                     if ( valid == 1 )
                         {
 
-//			printf("IPv6 with . at the end: %s\n", ptr1);
-
                             memcpy(Lookup_Cache[current_position].ip, ptr1, MAX_IP_SIZE);
 
                             current_position++;
-
-                            if ( current_position > MAX_PARSE_IP )
-                                {
-                                    fprintf(stderr, "Went over the MAX_PARSE_IP limit of %d\n", MAX_PARSE_IP);
-                                    exit(-1);
-                                }
-
+                            Check_Position( current_position );
 
                         }
                 }
@@ -311,5 +262,16 @@ uint_fast8_t Parse_IP( const char *buf, struct _Lookup_Cache_Entry *Lookup_Cache
 
     free(mod_string);
     return(current_position);
+
+}
+
+void Check_Position( uint_fast16_t current_position )
+{
+
+    if ( current_position > MAX_PARSE_IP )
+        {
+            fprintf(stderr, "[%s, line %d] Went over the MAX_PARSE_IP limit of %d\n", __FILE__, __LINE__, MAX_PARSE_IP);
+            exit(-1);
+        }
 
 }
